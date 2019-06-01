@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="paintFactory" class="ie.wtsanshou.paintshops.Factory.PaintFactoryImpl"/>
+    <bean name="customerFactory" class="ie.wtsanshou.paintshops.Factory.CustomerFactoryImpl"/>
+    <bean name="colorConverter" class="ie.wtsanshou.paintshops.converter.ColorConverterImpl"/>
+    <bean name="customerDataFactory" class="ie.wtsanshou.paintshops.Factory.CustomerDataFactoryImpl"/>
+
+    <bean name="customerConverter" class="ie.wtsanshou.paintshops.converter.CustomerConverterImpl">
+        <constructor-arg name="colorConverter" ref="colorConverter"/>
+        <constructor-arg name="customerFactory" ref="customerFactory"/>
+        <constructor-arg name="paintFactory" ref="paintFactory"/>
+    </bean>
+
+    <bean name="customerDataConverter" class="ie.wtsanshou.paintshops.converter.CustomerDataConverterImpl">
+        <constructor-arg name="colorConverter" ref="colorConverter"/>
+        <constructor-arg name="customerConverter" ref="customerConverter"/>
+        <constructor-arg name="customerDataFactory" ref="customerDataFactory"/>
+    </bean>
+
+    <bean name="paintShopServer" class="ie.wtsanshou.paintshops.service.PaintShopServerImpl"/>
+
+    <bean name="inventoryPresenter" class="ie.wtsanshou.paintshops.presenter.InventoryPresenterImpl"/>
+
+    <bean name="inventoryConsoleWriter" class="ie.wtsanshou.paintshops.outbound.InventoryConsoleWriter"/>
+
+</beans>
