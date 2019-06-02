@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean name="httpRequest" class="ie.wtsanshou.eventbooking.rest.RestRequestImpl">
+        <constructor-arg name="get_url" value="https://candidate.hubteam.com/candidateTest/v3/problem/dataset?userKey=f0b189e7ff22c0c41fdf6b25f583"/>
+        <constructor-arg name="restTemplate" ref="springRestTemplate"/>
+        <constructor-arg name="post_url" value="https://candidate.hubteam.com/candidateTest/v3/problem/result?userKey=f0b189e7ff22c0c41fdf6b25f583"/>
+    </bean>
+
+    <bean name="springRestTemplate" class="org.springframework.web.client.RestTemplate"/>
+
+    <bean name="partnerFilter" class="ie.wtsanshou.eventbooking.service.PartnerFilterImpl"/>
+
+    <bean name="countriesPresenter" class="ie.wtsanshou.eventbooking.presenter.CountriesPresenterImpl">
+        <constructor-arg name="dateFormatter" ref="simpleDataFormat"/>
+        <constructor-arg name="countryFactory" ref="countryFactory"/>
+    </bean>
+
+    <bean name="simpleDataFormat" class="java.text.SimpleDateFormat">
+        <constructor-arg name="pattern" value="yyyy-MM-dd"/>
+    </bean>
+    <bean name="countryFactory" class="ie.wtsanshou.eventbooking.factory.CountryFactoryImpl"/>
+</beans>
